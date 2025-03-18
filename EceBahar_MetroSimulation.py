@@ -12,7 +12,7 @@ class Istasyon:
         self.komsular.append((diger, sure))
 
     def __lt__(self, other):
-        return self.idx < other.idx  # heapq kıyaslaması için eklendi
+        return self.idx < other.idx
 
 
 class MetroAgi:
@@ -88,6 +88,14 @@ class MetroAgi:
         return None
 
 
+def rota_duzenle(rota):
+    duzenli = []
+    for i in range(len(rota)):
+        if i == 0 or rota[i].ad != rota[i - 1].ad:
+            duzenli.append(rota[i])
+    return duzenli
+
+
 if __name__ == "__main__":
     metro = MetroAgi()
 
@@ -122,38 +130,43 @@ if __name__ == "__main__":
     metro.baglanti_ekle("S4", "Y1", 2)
     metro.baglanti_ekle("M3", "Y2", 3)
 
-    print("\n=== Test Senaryoları ===")
+    print("\n=== Test Senaryoları ===\n")
 
-    print("\n1. Harput'tan Havalimanı'na:")
+    print("1. Harput'tan Havalimanı'na")
+    print("------------------------------")
     rota = metro.en_az_aktarma_bul("S1", "Y4")
     if rota:
-        print("En az aktarmalı rota:", " -> ".join(i.ad for i in rota))
+        rota = rota_duzenle(rota)
+        print("En az aktarmalı rota:\n ", " ➡️ ".join(i.ad for i in rota))
 
     sonuc = metro.en_hizli_rota_bul("S1", "Y4")
     if sonuc:
         rota, sure = sonuc
-        print(f"En hızlı rota ({sure} dakika):", " -> ".join(i.ad for i in rota))
+        rota = rota_duzenle(rota)
+        print(f"En hızlı rota ({sure} dakika):\n ", " ➡️ ".join(i.ad for i in rota))
 
-    print("\n2. Üniversite'den Abdullahpaşa'ya:")
+    print("\n2. Üniversite'den Abdullahpaşa'ya")
+    print("------------------------------")
     rota = metro.en_az_aktarma_bul("M1", "S4")
     if rota:
-        print("En az aktarmalı rota:", " -> ".join(i.ad for i in rota))
+        rota = rota_duzenle(rota)
+        print("En az aktarmalı rota:\n ", " ➡️ ".join(i.ad for i in rota))
 
     sonuc = metro.en_hizli_rota_bul("M1", "S4")
     if sonuc:
         rota, sure = sonuc
-        print(f"En hızlı rota ({sure} dakika):", " -> ".join(i.ad for i in rota))
+        rota = rota_duzenle(rota)
+        print(f"En hızlı rota ({sure} dakika):\n ", " ➡️ ".join(i.ad for i in rota))
 
-    print("\n3. Havalimanı'ndan Çaydaçıra'ya:")
+    print("\n3. Havalimanı'ndan Çaydaçıra'ya")
+    print("------------------------------")
     rota = metro.en_az_aktarma_bul("Y4", "S2")
     if rota:
-        print("En az aktarmalı rota:", " -> ".join(i.ad for i in rota))
+        rota = rota_duzenle(rota)
+        print("En az aktarmalı rota:\n ", " ➡️ ".join(i.ad for i in rota))
 
     sonuc = metro.en_hizli_rota_bul("Y4", "S2")
     if sonuc:
         rota, sure = sonuc
-        print(f"En hızlı rota ({sure} dakika):", " -> ".join(i.ad for i in rota))
-
-
-
-
+        rota = rota_duzenle(rota)
+        print(f"En hızlı rota ({sure} dakika):\n ", " ➡️ ".join(i.ad for i in rota))
